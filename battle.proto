@@ -1,0 +1,17 @@
+option java_package = "com.viii.battle.net.protocol";
+option java_outer_classname = "Protocol";
+
+////////////////////////////////////////////////////////////
+// ---------------------- System ------------------------ //
+////////////////////////////////////////////////////////////
+
+//0x01
+message SPing{
+    optional string greeting = 1;
+}
+
+//0x01
+message CPing{
+    optional string info = 1;
+}
+

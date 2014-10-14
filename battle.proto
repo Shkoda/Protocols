@@ -88,7 +88,7 @@ message SCreateRoom{
 
 //0x22
 message CCreateRoom{
-    required successful = 1;
+    required bool successful = 1;
     optional RoomInfo room = 2;
 }
 

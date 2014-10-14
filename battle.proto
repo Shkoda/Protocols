@@ -15,3 +15,156 @@ message CPing{
     optional string info = 1;
 }
 
+////////////////////////////////////////////////////////////
+// ---------------------- Login  ------------------------ //
+////////////////////////////////////////////////////////////
+
+//0x10
+message SNewPlayer{
+    required string name = 1;
+}
+
+//0x10
+message CNewPlayer{
+    required PlayerInfo playerInfo = 1;
+    repeated PlayerInfo onlinePlayers = 2;
+    repeated RoomInfo rooms = 3;
+}
+
+////////////////////////////////////////////////////////////
+// ---------------------- Lobby  ------------------------ //
+////////////////////////////////////////////////////////////
+
+//0x20
+message SGetPlayers{
+    optional bool nothing = 1;
+}
+
+//0x20
+message CGetPlayers{
+    repeated PlayerInfo players = 1;
+}
+
+message PlayerInfo{
+    required int32 id = 1;
+    required string name = 2;
+    required PlayerState state = 3;
+}
+
+enum PlayerState{
+    IN_LOBBY = 1;
+    IN_ROOM = 2;
+    IN_COMBAT = 3;
+}
+
+//0x21
+message SGetRooms{
+    optional bool nothing = 1;
+}
+
+//0x21
+message CGetRooms{
+    repeated RoomInfo rooms = 1;
+}
+
+message RoomInfo{
+    required int32 id = 1;
+    required int32 capacity = 2;
+    repeated PlayerInfo players = 3;
+    required RoomState state = 4;
+    optional int64 startTimeUTC = 5;
+}
+
+enum RoomState{
+    WAITING = 1;
+    READY = 2;
+    COMBAT = 3;
+}
+
+//0x22
+message SCreateRoom{
+    required int32 capacity = 1;
+}
+
+//0x22
+message CCreateRoom{
+    required successful = 1;
+    optional RoomInfo room = 2;
+}
+
+
+//0x23
+message SJoinRoom{
+    required int32 roomId = 1;
+}
+
+//0x23
+message CJoinRoom{
+    required bool successful = 1;
+    optional RoomInfo room = 2;
+}
+
+//0x24
+message SLeaveRoom{
+    required int32 roomId = 1;
+}
+
+//0x24
+message CLeaveRoom{
+    required bool successful = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

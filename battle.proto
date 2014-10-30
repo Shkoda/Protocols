@@ -16,7 +16,7 @@ message CPing{
 }
 
 ////////////////////////////////////////////////////////////
-// ---------------------- Login  ------------------------ //
+// ----------------------- Auth  ------------------------ //
 ////////////////////////////////////////////////////////////
 
 //0x10
@@ -48,7 +48,7 @@ message CGetPlayers{
 message PlayerInfo{
     required int32 id = 1;
     required string name = 2;
-    required PlayerState state = 3;
+    optional PlayerState state = 3 [default=IN_LOBBY];
 }
 
 enum PlayerState{
@@ -106,7 +106,7 @@ message CJoinRoom{
 
 //0x24
 message SLeaveRoom{
-    required int32 roomId = 1;
+    required int32 roomId = 1;      //deprecated
 }
 
 //0x24
@@ -114,8 +114,68 @@ message CLeaveRoom{
     required bool successful = 1;
 }
 
+////////////////////////////////////////////////////////////
+// ---------------------- Game  ------------------------- //
+////////////////////////////////////////////////////////////
 
+//0x30
+message SField {
+    optional bool nothing = 1;
+}
 
+//0x30
+message CField{
+    optional Field field = 1;
+}
+
+enum Status{
+    OK = 1;
+    PLAYER_NOT_FOUND = 2;
+    NOT_IN_COMBAT = 3;
+}
+
+message Field{
+    repeated Cell cells = 1;
+    repeated Panzer panzers = 2;
+}
+
+message Panzer{
+    required PlayerInfo owner = 1;
+    required Position position = 2;
+    optional PanzerProperties properties = 3;
+}
+
+message PanzerProperties{
+    required int32 speed = 1;
+    required int32 power = 2;
+}
+
+message Cell{
+    required Position position = 1;
+    optional Dimension dimension = 2;
+    required CellProperties properties = 3;
+}
+
+message CellProperties{
+    required CellType type = 1;
+    required bool canBeDestroyed = 2;
+    optional int32 health = 3;
+}
+
+enum CellType{
+    BRICK = 1;
+    STEEL = 2;
+}
+
+message Position{
+    required int32 x = 1;
+    required int32 y = 2;
+}
+
+message Dimension{
+    required int32 height = 1;
+    required int32 width = 2;
+}
 
 
 
